@@ -323,7 +323,7 @@ function App() {
 							error={error}
 							loadingText="Fetching devices..."
 						>
-							{(state as string) !== (State.fetchingDevices as string) && (
+							{state === State.addDeviceModal && (
 								<ul className="max-h-60 overflow-y-auto rounded-sm">
 									{devices.filter(d => !registeredDevices.some(rd => rd.id === d.id)).length === 0 && (
 										<li className="text-muted-foreground">No devices found</li>
@@ -333,7 +333,6 @@ function App() {
 											<Button
 												className="w-full text-left rounded-none bg-card text-card-foreground hover:bg-muted transition-colors duration-300 !p-2"
 												onClick={() => handleAddDevice(d.id)}
-												disabled={state === State.fetchingDevices}
 											>
 												{d.name}
 											</Button>
