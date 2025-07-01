@@ -55,17 +55,9 @@ You can manually move the window to the correct position to address this issue.
 2. Click `Control` > `Manual window positioning` in the menu
 3. Now you can grab the top of the window to move it to any position you like
 
-## Contributing
-Issues and PRs are appreciated.
-
-README is in English, but it is OK to write issues or PRs in Japanese.
-
-Also, if you like this software, please support the ZMK developer!
-https://opencollective.com/zmkfirmware
-
 ## Development
 1. Install [Bun](https://bun.sh)
-1. Install [Rust](https://www.rust-lang.org/ja/tools/install)
+1. Install [Rustup](https://www.rust-lang.org/tools/install)
 2. Clone this repo
    ```sh
    git clone https://github.com/kot149/zmk-battery-center.git
