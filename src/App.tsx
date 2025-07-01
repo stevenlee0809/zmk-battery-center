@@ -10,7 +10,7 @@ import { PlusIcon, ArrowPathIcon, Cog8ToothIcon } from "@heroicons/react/24/outl
 import Modal from "./components/Modal";
 import { useConfigContext } from "@/context/ConfigContext";
 import { load } from '@tauri-apps/plugin-store';
-import SettingsScreen from "@/components/SettingsScreen";
+import Settings from "@/components/Settingss";
 import { sendNotification } from "./utils/notificaion";
 import { NotificationType } from "./utils/config";
 import { sleep } from "./utils/common";
@@ -259,7 +259,7 @@ function App() {
 			'min-h-90'
 		}`}>
 			{state === State.settings ? (
-				<SettingsScreen
+				<Settings
 					onExit={async () => { setState(State.main); }}
 				/>
 			) : (

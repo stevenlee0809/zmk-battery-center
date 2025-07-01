@@ -12,7 +12,7 @@ interface SettingsScreenProps {
 	onExit: () => Promise<void>;
 }
 
-const SettingsScreen: React.FC<SettingsScreenProps> = ({
+const Settings: React.FC<SettingsScreenProps> = ({
 	onExit
 }) => {
 	const { setTheme, theme } = useTheme();
@@ -182,4 +182,4 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
 	);
 };
 
-export default SettingsScreen;
+export default Settings;
