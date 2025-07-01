@@ -4,23 +4,20 @@ import { useTheme, type Theme } from '@/context/theme-provider';
 import { logger } from '@/utils/log';
 import { listen, emit } from '@tauri-apps/api/event';
 
-// Configとsetterをまとめて提供するContextの型定義
 type ConfigContextType = {
 	config: Config;
 	setConfig: Dispatch<SetStateAction<Config>>;
 	isConfigLoaded: boolean;
 };
 
-// Contextの生成
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
-// Providerコンポーネント
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
 	const [config, setConfig] = useState<Config>(defaultConfig);
 	const [isConfigLoaded, setIsConfigLoaded] = useState(false);
 	const { setTheme } = useTheme();
 
-	// 初期設定をロード
+	// Load initial config
 	useEffect(() => {
 		let isMounted = true;
 		(async () => {
@@ -36,7 +33,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
 		return () => { isMounted = false; };
 	}, [setTheme]);
 
-	// 設定を永続化し、変更を通知
+	// Persist config and notify changes
 	useEffect(() => {
 		if (isConfigLoaded) {
 			(async () => {
@@ -70,7 +67,6 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
 	);
 };
 
-// Contextを使うためのカスタムフック
 export function useConfigContext(): ConfigContextType {
 	const context = useContext(ConfigContext);
 	if (!context) {

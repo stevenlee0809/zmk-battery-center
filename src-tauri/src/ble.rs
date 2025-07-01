@@ -15,7 +15,7 @@ pub struct BleDeviceInfo {
 #[derive(Serialize)]
 pub struct BatteryInfo {
     pub battery_level: Option<u8>,
-    pub user_descriptor: Option<String>,
+    pub user_descriptor: Option<String>, // User description
 }
 
 #[tauri::command]

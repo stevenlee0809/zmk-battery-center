@@ -5,7 +5,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export const Button: React.FC<ButtonProps> = ({ children, className = "", ...props }) => {
-  // w-10 h-10が含まれていればpaddingを0にする
+  // If w-10 h-10 is included, set padding to 0
   const isIconButton = className.includes("w-10") && className.includes("h-10");
   return (
     <button

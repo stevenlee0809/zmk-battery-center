@@ -30,18 +30,14 @@ enum State {
 	fetchingBatteryInfo = 'fetchingBatteryInfo',
 }
 
-// デバッグモードの設定
+// Debug mode
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 function App() {
-	// デバッグモードの切り替え
 	const [isDebugMode, setIsDebugMode] = useState(false);
-	// 登録済みデバイス
 	const [registeredDevices, setRegisteredDevices] = useState<RegisteredDevice[]>(isDebugMode ? mockRegisteredDevices : []);
-	// デバイスロード完了フラグ
 	const [isDeviceLoaded, setIsDeviceLoaded] = useState(false);
 
-	// デバッグモードの切り替え処理
 	const toggleDebugMode = () => {
 		setIsDebugMode(prev => {
 			if (!prev) {
@@ -53,18 +49,13 @@ function App() {
 		});
 	};
 
-	// デバイス取得用
 	const [devices, setDevices] = useState<BleDeviceInfo[]>([]);
-	// エラーメッセージ
 	const [error, setError] = useState("");
-
-	// config値
 	const { config, isConfigLoaded} = useConfigContext();
 
-	// 画面表示状態
 	const [state, setState] = useState<State>(State.main);
 
-	// 保存された値を取得
+	// Load saved devices
 	useEffect(() => {
 		const fetchRegisteredDevices = async () => {
 			const deviceStore = await load('devices.json', { autoSave: true });
@@ -76,14 +67,12 @@ function App() {
 		fetchRegisteredDevices();
 	}, []);
 
-	// デバイス一覧取得
 	async function fetchDevices() {
 		setState(State.fetchingDevices);
 		setError("");
 		let timeoutId: number | null = null;
 		let finished = false;
 
-		// macOS判定
 		const isMac = navigator.userAgent.includes("Macintosh") || navigator.userAgent.includes("Mac OS X");
 
 		try {
@@ -125,7 +114,6 @@ function App() {
 		return batteryInfos.map(info => info.battery_level !== null ? info.battery_level <= 20 : false);
 	}
 
-	// デバイス追加
 	const handleAddDevice = async (id: string) => {
 		if (!registeredDevices.some(d => d.id === id)) {
 			const device = devices.find(d => d.id === id);
@@ -143,7 +131,6 @@ function App() {
 		handleCloseModal();
 	};
 
-	// バッテリー情報を更新する関数
 	const updateBatteryInfo = async (device: RegisteredDevice) => {
 		const isDisconnectedPrev = device.isDisconnected;
 		const isLowBatteryPrev = mapIsLowBattery(device.batteryInfos);
@@ -197,20 +184,18 @@ function App() {
 		setError("");
 	};
 
-	// +ボタン押下時
 	const handleOpenModal = async () => {
 		setState(State.addDeviceModal);
 		await fetchDevices();
 	};
 
-	// リロードボタン押下時
 	const handleReload = async () => {
 		setState(State.fetchingBatteryInfo);
 		await Promise.all(registeredDevices.map(updateBatteryInfo));
 		setState(State.main);
 	};
 
-	// ウィンドウサイズ変更
+	// Handle window size change
 	useEffect(() => {
 		resizeWindowToContent().then(() => {
 			if(isConfigLoaded && !config.manualWindowPositioning){
@@ -226,7 +211,7 @@ function App() {
 	}, [registeredDevices, state]);
 
 	useEffect(() => {
-		// デバイス一覧保存
+		// Save registered devices
 		if(isDeviceLoaded){
 			const saveRegisteredDevices = async () => {
 				const deviceStore = await load('devices.json', { autoSave: true });
@@ -236,7 +221,7 @@ function App() {
 			saveRegisteredDevices();
 		}
 
-		// 一定時間ごとにバッテリー情報を更新
+		// Update battery info periodically
 		let isUnmounted = false;
 
 		const interval = setInterval(() => {
@@ -250,7 +235,6 @@ function App() {
 		};
 	}, [registeredDevices, config.fetchInterval]);
 
-	// UI
 	return (
 		<div id="app" className={`relative w-90 flex flex-col bg-background text-foreground rounded-lg p-2 ${
 			state === State.main && registeredDevices.length > 0 ? '' :
@@ -265,12 +249,12 @@ function App() {
 			) : (
 				<>
 					<div>
-						{/* ドラッグエリア */}
+						{/* Drag area */}
 						{ config.manualWindowPositioning && (
 							<div data-tauri-drag-region className="fixed top-0 left-0 w-full h-14 bg-transparent z-0 cursor-grab active:cursor-grabbing"></div>
 						)}
 
-						{/* デバッグモード切り替えボタン */}
+						{/* Debug mode toggle button */}
 						{IS_DEV && (
 							<div className="fixed top-4 left-4">
 								<button
@@ -282,8 +266,9 @@ function App() {
 							</div>
 						)}
 
+						{/* Top-right buttons */}
 						<div className="flex flex-row ml-auto justify-end">
-							{/* 右上+ボタン */}
+							{/* + button */}
 							<Button
 								className="w-10 h-10 rounded-lg bg-transparent flex items-center justify-center text-2xl !p-0 !px-0 !py-0 hover:bg-secondary relative z-10"
 								onClick={handleOpenModal}
@@ -292,7 +277,7 @@ function App() {
 								<PlusIcon className="size-5" />
 							</Button>
 
-							{/* リロードボタン */}
+							{/* Reload button */}
 							<Button
 								className="w-10 h-10 rounded-lg bg-transparent flex items-center justify-center text-2xl !p-0 text-foreground hover:bg-secondary disabled:!text-muted-foreground disabled:hover:bg-transparent relative z-10"
 								onClick={handleReload}
@@ -302,7 +287,7 @@ function App() {
 								<ArrowPathIcon className="size-5" />
 							</Button>
 
-							{/* 設定ボタン */}
+							{/* Settings button */}
 							<Button
 								className="w-10 h-10 rounded-lg bg-transparent hover:bg-secondary flex items-center justify-center text-2xl !text-foreground !p-0 relative z-10"
 								onClick={() => setState(State.settings)}
@@ -313,7 +298,7 @@ function App() {
 						</div>
 					</div>
 
-					{/* モーダル（デバイス選択） */}
+					{/* Modal (device selection) */}
 					{(state === State.addDeviceModal || state === State.fetchingDevices) && (
 						<Modal
 							open={true}
@@ -343,7 +328,7 @@ function App() {
 						</Modal>
 					)}
 
-					{/* デバイス未登録時 */}
+					{/* No devices registered */}
 					{registeredDevices.length === 0 && (
 						<div className="flex-1 flex flex-col items-center justify-center gap-6">
 							<h1 className="text-2xl text-foreground">No devices registered</h1>
@@ -353,7 +338,7 @@ function App() {
 						</div>
 					)}
 
-					{/* デバイス登録時 */}
+					{/* Devices registered */}
 					{registeredDevices.length > 0 && (
 						<main className="container mx-auto">
 							<RegisteredDevicesPanel
@@ -363,7 +348,7 @@ function App() {
 						</main>
 					)}
 
-					{/* Add Deviceでデバイス選択後のローディング表示 */}
+					{/* Loading after device selection */}
 					<Modal
 						open={state === State.fetchingBatteryInfo}
 						onClose={() => {}}

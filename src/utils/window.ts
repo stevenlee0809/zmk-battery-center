@@ -97,7 +97,7 @@ export async function moveWindowTo(x: number, y: number) {
     await saveWindowPosition();
 }
 
-// 最初のconfig読み込み時、保存された位置にwindowを移動する
+// Move window to saved position on initial config load
 once<Config>('config-changed', async ({ payload: initialConfig }) => {
 	if(initialConfig.manualWindowPositioning){
 		moveWindowTo(initialConfig.windowPosition.x, initialConfig.windowPosition.y);

@@ -2,8 +2,8 @@ import { invoke } from "@tauri-apps/api/core";
 
 /**
  * @typedef {Object} BleDeviceInfo
- * @property {string} name デバイス名
- * @property {string} id デバイスID
+ * @property {string} name Device name
+ * @property {string} id Device ID
  */
 /** @export */
 export type BleDeviceInfo = {
@@ -13,8 +13,8 @@ export type BleDeviceInfo = {
 
 /**
  * @typedef {Object} BatteryInfo
- * @property {number|null} battery_level バッテリー残量（%）
- * @property {string|null} user_descriptor ユーザ記述子
+ * @property {number|null} battery_level Battery level (0-100)
+ * @property {string|null} user_descriptor User description
  */
 /** @export */
 export type BatteryInfo = {
@@ -23,7 +23,7 @@ export type BatteryInfo = {
 };
 
 /**
- * デバイス一覧を取得
+ * Get device list
  * @returns {Promise<BleDeviceInfo[]>}
  */
 export async function listBatteryDevices(): Promise<BleDeviceInfo[]> {
@@ -31,8 +31,8 @@ export async function listBatteryDevices(): Promise<BleDeviceInfo[]> {
 }
 
 /**
- * 指定デバイスのバッテリー情報を取得
- * @param {string} id デバイスID
+ * Get battery info for a specified device
+ * @param {string} id Device ID
  * @returns {Promise<BatteryInfo[]>}
  */
 export async function getBatteryInfo(id: string): Promise<BatteryInfo[]> {

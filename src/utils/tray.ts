@@ -7,10 +7,9 @@ import { openUrl } from '@tauri-apps/plugin-opener';
 import { logger } from './log';
 import { hideWindow, moveWindowToTrayCenter, setWindowFocus } from './window';
 import { Config } from './config';
-/*
-	plugin-positionerが動作可能かを判断するためのフラグ。
-	一度ユーザーがトレイクリック/ホバーするまでplugin-positionerが動作しない。
-*/
+
+// Flag to check if plugin-positioner is working
+// plugin-positioner doesn't work until user clicks/hovers on the tray
 export let isTrayPositionSet = false;
 
 export let manualWindowPositioning = false;

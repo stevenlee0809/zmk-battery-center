@@ -26,7 +26,7 @@ const Settings: React.FC<SettingsScreenProps> = ({
 
 	return (
 		<div className="fixed inset-0 z-50 flex flex-col items-center justify-center h-full w-full p-4">
-			{/* 右上閉じるボタン */}
+			{/* Top-right close button */}
 			<Button
 				type="button"
 				className="absolute top-2 right-2 w-10 h-10 rounded-lg bg-transparent hover:bg-secondary flex items-center justify-center text-xl font-bold text-foreground !p-0"
@@ -37,7 +37,7 @@ const Settings: React.FC<SettingsScreenProps> = ({
 			</Button>
 
 			<div className="flex flex-col gap-3 w-full p-4">
-				{/* テーマ */}
+				{/* Theme */}
 				<div className="flex justify-between items-center">
 					<span>Theme</span>
 					<div className="flex-1 flex justify-end gap-2">
@@ -84,7 +84,7 @@ const Settings: React.FC<SettingsScreenProps> = ({
 					</div>
 				</div>
 
-				{/* バッテリー取得間隔 */}
+				{/* Battery fetch interval */}
 				<div className="flex justify-between">
 					<span>Battery fetch interval</span>
 					<div>
@@ -117,7 +117,7 @@ const Settings: React.FC<SettingsScreenProps> = ({
 					</div>
 				</div>
 
-				{/* 自動起動設定 */}
+				{/* Auto start at login */}
 				<div className="flex justify-between">
 					<span>Auto start at login</span>
 					<Switch
@@ -126,7 +126,7 @@ const Settings: React.FC<SettingsScreenProps> = ({
 					/>
 				</div>
 
-				{/* プッシュ通知設定 */}
+				{/* Push notifications */}
 				<div className="flex flex-col w-full gap-2">
 					<div className="flex justify-between">
 						<span className="">Push notifications</span>

@@ -1,32 +1,32 @@
 import React from "react";
 
 interface BatteryIconProps {
-  percentage: number; // 0〜100
+  percentage: number; // 0-100
   className?: string;
-  size?: number; // アイコンサイズ(px)
+  size?: number; // Icon size (px)
 }
 
 const getBatteryColor = (percentage: number) => {
-  if (percentage <= 20) return "#ef4444"; // 赤
-  if (percentage <= 40) return "#f59e42"; // オレンジ
-  return "#22c55e"; // 緑
+  if (percentage <= 20) return "#ef4444"; // Red
+  if (percentage <= 40) return "#f59e42"; // Orange
+  return "#22c55e"; // Green
 };
 
 const BatteryIcon: React.FC<BatteryIconProps> = ({ percentage, className = "", size = 28 }) => {
 
-  // バッテリー外枠
+  // Battery frame
   const left = 2;
   const top = 4;
   const frameWidth = size * 0.85;
   const frameHeight = size * 0.48;
 
-  // バッテリー端子部分
+  // Battery terminal
   const terminalWidth = size - frameWidth;
   const terminalHeight = frameHeight * 0.5;
   const terminalLeft = left+frameWidth;
   const terminalTop = top + (frameHeight - terminalHeight) / 2;
 
-  // バッテリーの充電部分の幅
+  // Battery fill width
   const maxFillWidth = frameWidth * 0.85;
   const padding = (frameWidth - maxFillWidth) / 2;
   const fillWidth = Math.max(0, Math.min(maxFillWidth, maxFillWidth * percentage / 100));
@@ -44,11 +44,11 @@ const BatteryIcon: React.FC<BatteryIconProps> = ({ percentage, className = "", s
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* バッテリー外枠 */}
+      {/* Battery frame */}
       <rect x={left} y={top} width={frameWidth} height={frameHeight} rx="10%" className="stroke-card-foreground/60 stroke-2 fill-none" />
-      {/* バッテリー端子 */}
+      {/* Battery terminal */}
       <rect x={terminalLeft} y={terminalTop} width={terminalWidth} height={terminalHeight} rx="10%" className="fill-card-foreground/60" />
-      {/* バッテリー残量 */}
+      {/* Battery fill */}
       <rect x={fillLeft} y={fillTop} width={fillWidth} height={fillHeight} rx="10%" fill={color} />
     </svg>
   );

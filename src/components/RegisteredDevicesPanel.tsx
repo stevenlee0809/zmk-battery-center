@@ -23,7 +23,7 @@ const RegisteredDevicesPanel: React.FC<DeviceListProps> = ({
 				<div className="space-y-4">
 					{registeredDevices.map((device, deviceIdx) => (
 						<div key={device.id} className="relative group bg-card rounded-lg p-4">
-							{/* メニュー（右上） */}
+							{/* Top-right menu */}
 							<div className="absolute top-2 right-2 z-10">
 								<Button
 									className="w-10 h-8 text-muted-foreground group-hover:opacity-100 opacity-0 bg-transparent hover:bg-muted hover:text-foreground !p-0"
@@ -77,12 +77,13 @@ const RegisteredDevicesPanel: React.FC<DeviceListProps> = ({
 									</div>
 								)}
 							</div>
-							{/* メニュー外クリックで閉じる */}
+
+							{/* Click outside menu to close */}
 							{menuOpen === device.id && (
 								<div className="fixed inset-0 z-0" onClick={handleMenuClose}></div>
 							)}
 
-							{/* デバイス名＋disconnected? */}
+							{/* Device name + disconnected indicator */}
 							<div className="flex items-baseline gap-2 mb-2">
 								<span className={`text-lg font-semibold truncate ${device.isDisconnected ? 'max-w-45' : 'max-w-60'}`}>{device.name}</span>
 								{device.isDisconnected && (
@@ -90,7 +91,7 @@ const RegisteredDevicesPanel: React.FC<DeviceListProps> = ({
 								)}
 							</div>
 
-							{/* バッテリー情報リスト */}
+							{/* Battery info list */}
 							{device.batteryInfos.length === 0 ? (
 								<div className="text-muted-foreground mx-auto">No battery information</div>
 							) : (

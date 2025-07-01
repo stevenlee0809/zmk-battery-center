@@ -1,7 +1,6 @@
 use ansi_term::Color;
 use tauri_plugin_autostart::MacosLauncher;
 
-// モジュール宣言を追加
 mod ble;
 mod common;
 mod tray;

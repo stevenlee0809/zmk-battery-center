@@ -1,6 +1,5 @@
 import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
 
-
 export class Logger {
 	warn = warn;
 	debug = debug;
