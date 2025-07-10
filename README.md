@@ -16,20 +16,28 @@ A system tray app to monitor the battery level of ZMK-based keyboards, built wit
   - Auto start at login
   - Switch between light and dark themes
 
-## Download
+## Installation
 
-Download from [Releases](https://github.com/kot149/zmk-battery-center/releases).
+Download the binary/installer from [Releases](https://github.com/kot149/zmk-battery-center/releases).
+
+> [!important]
+> On macOS, the app is blocked from opening as it is not signed. Remove the app from quarantine by running the following command in the terminal:
+> ```sh
+> sudo xattr -d com.apple.quarantine /Applications/zmk-battery-center.app
+> ```
+> Typically it's located at `/Applications/zmk-battery-center.app`, but change it to the actual path if it's different.
+
+If you worry about security, you can build the app yourself from source code. See [Development](#development) section for more details.
 
 ## Troubleshooting
 
 ### Cannot open the app on macOS
 
-- Remove the app from quarantine by running the following command in the terminal:
+- On macOS, the app is blocked from opening as it is not signed. Remove the app from quarantine by running the following command in the terminal:
   ```sh
-  sudo xattr -d com.apple.quarantine /path/to/zmk-battery-center.app
-  # typically:
   sudo xattr -d com.apple.quarantine /Applications/zmk-battery-center.app
   ```
+  Typically it's located at `/Applications/zmk-battery-center.app`, but change it to the actual path if it's different.
 
 ### My keyboard does not show up / Peripheral side battery level is not displayed
 
@@ -55,9 +63,17 @@ You can manually move the window to the correct position to address this issue.
 2. Click `Control` > `Manual window positioning` in the menu
 3. Now you can grab the top of the window to move it to any position you like
 
+## Contributing
+Issues and PRs are appreciated.
+
+README is in English, but it is OK to write issues or PRs in Japanese.
+
+Also, if you like this software, please support the ZMK developer!
+https://opencollective.com/zmkfirmware
+
 ## Development
 1. Install [Bun](https://bun.sh)
-1. Install [Rustup](https://www.rust-lang.org/tools/install)
+1. Install [Rustup](https://www.rust-lang.org/ja/tools/install)
 2. Clone this repo
    ```sh
    git clone https://github.com/kot149/zmk-battery-center.git
@@ -80,6 +96,14 @@ You can manually move the window to the correct position to address this issue.
      cd src-tauri
      cargo clean
      cd ..
+     ```
+   - Specify the target platform with `--target` option. If omitted, the app will be built for the current platform.
+     ```sh
+     # for macOS arm64
+     bun tauri build --target aarch64-apple-darwin
+
+     # for macOS x86_64
+     bun tauri build --target x86_64-apple-darwin
      ```
 
 You can also build using [GitHub Actions](.github/workflows).
