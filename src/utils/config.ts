@@ -1,7 +1,7 @@
 import { load, type Store } from '@tauri-apps/plugin-store';
 import { Theme } from '@/context/theme-provider';
 import { enable as enableAutostart, isEnabled as isAutostartEnabled, disable as disableAutostart } from '@tauri-apps/plugin-autostart';
-import { requestNotificationPermission } from './notificaion';
+import { requestNotificationPermission } from './notification';
 import { logger } from './log';
 
 export enum NotificationType {

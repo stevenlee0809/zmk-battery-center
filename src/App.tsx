@@ -10,8 +10,8 @@ import { PlusIcon, ArrowPathIcon, Cog8ToothIcon } from "@heroicons/react/24/outl
 import Modal from "./components/Modal";
 import { useConfigContext } from "@/context/ConfigContext";
 import { load } from '@tauri-apps/plugin-store';
-import Settings from "@/components/Settingss";
-import { sendNotification } from "./utils/notificaion";
+import Settings from "@/components/Settings";
+import { sendNotification } from "./utils/notification";
 import { NotificationType } from "./utils/config";
 import { sleep } from "./utils/common";
 
