@@ -5,6 +5,7 @@ A system tray app to monitor the battery level of ZMK-based keyboards, built wit
 ![image](https://github.com/user-attachments/assets/1fe0b6de-c8cd-428b-975f-8c5d89850aba)
 
 ## ✨ Features
+
 - Display battery level for:
   - Both central and peripheral sides of split keyboards
   - Multiple keyboards simultaneously
@@ -46,6 +47,7 @@ If you worry about security, you can build the app yourself from source code. Se
   ```kconfig
   CONFIG_BT_BAS=y
   CONFIG_ZMK_BATTERY_REPORTING=y
+
   # For split keyboards:
   CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING=y
   CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY=y
@@ -63,15 +65,8 @@ You can manually move the window to the correct position to address this issue.
 2. Click `Control` > `Manual window positioning` in the menu
 3. Now you can grab the top of the window to move it to any position you like
 
-## Contributing
-Issues and PRs are appreciated.
-
-README is in English, but it is OK to write issues or PRs in Japanese.
-
-Also, if you like this software, please support the ZMK developer!
-https://opencollective.com/zmkfirmware
-
 ## Development
+
 1. Install [Bun](https://bun.sh)
 1. Install [Rustup](https://www.rust-lang.org/ja/tools/install)
 2. Clone this repo
@@ -109,6 +104,7 @@ https://opencollective.com/zmkfirmware
 You can also build using [GitHub Actions](.github/workflows).
 
 ## References
+
 - ZMK PR [#1243](https://github.com/zmkfirmware/zmk/pull/1243), [#2045](https://github.com/zmkfirmware/zmk/pull/2045) — Implementation and discussion for split battery reporting over BLE GATT
 - [zmk-ble](https://github.com/Katona/zmk-ble): Proof-of-concept system tray app for macOS (not compatible with latest macOS)
 - [Mighty-Mitts](https://github.com/codyd51/Mighty-Mitts): System tray app for macOS
