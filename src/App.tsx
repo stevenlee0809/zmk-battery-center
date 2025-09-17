@@ -132,6 +132,8 @@ function App() {
 	};
 
 	const updateBatteryInfo = async (device: RegisteredDevice) => {
+	    const oldDevice = registeredDevices.find(d => d.id === device.id);
+        const oldName = oldDevice?.name ?? device.name;
 		const isDisconnectedPrev = device.isDisconnected;
 		const isLowBatteryPrev = mapIsLowBattery(device.batteryInfos);
 
@@ -143,7 +145,7 @@ function App() {
 			try {
 				const info = await getBatteryInfo(device.id);
 				const infoArray = Array.isArray(info) ? info : [info];
-				setRegisteredDevices(prev => prev.map(d => d.id === device.id ? { ...d, batteryInfos: infoArray, isDisconnected: false, name: d.name } : d));
+				setRegisteredDevices(prev => prev.map(d => d.id === device.id ? { ...d, batteryInfos: infoArray, isDisconnected: false, name: oldName } : d));
 
 				if(isDisconnectedPrev && config.pushNotification && config.pushNotificationWhen[NotificationType.Connected]){
 					await sendNotification(`${device.name} has been connected.`);
