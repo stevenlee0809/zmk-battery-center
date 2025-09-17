@@ -143,6 +143,10 @@ function App() {
 			try {
 				const info = await getBatteryInfo(device.id);
 				const infoArray = Array.isArray(info) ? info : [info];
+				const customDescriptors = ["Model X", "Model Y"];
+				for (let i = 0; i < infoArray.length; i++) {
+                    infoArray[i].user_descriptor = customDescriptors[i] ?? infoArray[i].user_descriptor;
+                }
 				setRegisteredDevices(prev => prev.map(d => d.id === device.id ? { ...d, batteryInfos: infoArray, isDisconnected: false } : d));
 
 				if(isDisconnectedPrev && config.pushNotification && config.pushNotificationWhen[NotificationType.Connected]){
