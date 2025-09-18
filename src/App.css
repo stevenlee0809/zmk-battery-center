@@ -3,7 +3,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'Tesla';
+  src: url('/src/assets/fonts/TESLA.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
+  font-family: 'Tesla', system-ui, sans-serif;
   font-size: 14px;
   user-select: none;
   overflow: hidden;
