@@ -11,6 +11,13 @@
   font-display: swap;
 }
 
+@layer utilities {
+  .font-system {
+    font-family: system-ui, sans-serif !important;
+    font-variant-numeric: tabular-nums; /* 讓數字等寬，看起來不會跳動 */
+  }
+}
+
 html {
   font-family: 'Tesla', system-ui, sans-serif;
   font-size: 14px;
